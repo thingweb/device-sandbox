@@ -1,4 +1,3 @@
-import { ObserveReadStream } from 'coap';
 import { parseArgs } from 'node:util';
 const coap = require('coap');
 
@@ -6,7 +5,7 @@ const server = coap.createServer();
 const hostname = "localhost";
 let portNumber = 5683;
 
-const thingName = "coap-thing";
+const thingName = "coap-calculator";
 const PROPERTIES = "properties";
 const ACTIONS = "actions";
 const EVENTS = "events";

@@ -17,12 +17,10 @@ if (port && !isNaN(parseInt(port))) {
     portNumber = parseInt(port);
 }
 
-
+const thingName = "mqtt-calculator"
 const PROPERTIES = "properties";
 const ACTIONS = "actions";
 const EVENTS = "events";
-
-const thingName = "mqtt-thing"
 
 const broker = mqtt.connect(`mqtt://${hostname}`, { port: portNumber });
 

@@ -7,7 +7,7 @@ const app = express();
 const hostname = "localhost";
 let portNumber = 3000;
 
-const thingName = "http-thing";
+const thingName = "http-express-calculator";
 const PROPERTIES = "properties";
 const ACTIONS = "actions";
 const EVENTS = "events";
