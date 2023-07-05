@@ -1,5 +1,7 @@
-import { parseArgs } from 'node:util';
+const { parseArgs } = require("node:util");
 const { ServerTCP } = require("modbus-serial");
+const fs = require("fs");
+const path = require("path");
 
 const hostname = "0.0.0.0";
 let portNumber = 8502;
