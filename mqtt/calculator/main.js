@@ -27,7 +27,7 @@ const EVENTS = "events";
 
 const broker = mqtt.connect(`mqtt://${hostname}`, { port: portNumber });
 
-let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "tm.json"), { "encoding": "utf-8" }));
+let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "calculator.tm.json"), { "encoding": "utf-8" }));
 
 const placeholderReplacer = new JsonPlaceholderReplacer();
 placeholderReplacer.addVariableMap({

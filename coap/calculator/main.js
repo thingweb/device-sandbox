@@ -26,7 +26,7 @@ if (port && !isNaN(parseInt(port))) {
     portNumber = parseInt(port);
 }
 
-let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "tm.json"), { "encoding": "utf-8" }));
+let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "calculator.tm.json"), { "encoding": "utf-8" }));
 
 const placeholderReplacer = new JsonPlaceholderReplacer();
 placeholderReplacer.addVariableMap({
