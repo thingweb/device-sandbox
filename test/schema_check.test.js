@@ -13,10 +13,10 @@ const modbusSchema = JSON.parse(fs.readFileSync(path.join(".", "schemas", "modbu
 const mqttSchema = JSON.parse(fs.readFileSync(path.join(".", "schemas", "mqtt.schema.json"), { "encoding": "utf-8" }));
 const tdJsonSchemaValidation = JSON.parse(fs.readFileSync(path.join(".", "schemas", "td-json-schema-validation.json"), { "encoding": "utf-8" }));
 
-const ajv = new Ajv2019({ "strict": false, "validateFormats": false });
+const ajv = new Ajv2019({ "strict": false, "allErrors": true, "validateFormats": false });
 const draft7MetaSchema = require("ajv/dist/refs/json-schema-draft-07.json");
 ajv.addMetaSchema(draft7MetaSchema);
-ajv.addSchema(tdJsonSchemaValidation);
+ajv.addMetaSchema(tdJsonSchemaValidation);
 
 const expect = chai.expect;
 
@@ -29,7 +29,7 @@ describe("JSON Schema Check", () => {
         })
 
         it("HTTP Express TD should validate", (done) => {
-            const td = fs.readFileSync(path.join(".", "http", "express", "calculator", "td.json"), { "encoding": "utf-8" });
+            const td = JSON.parse(fs.readFileSync(path.join(".", "http", "express", "calculator", "tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             expect(valid).to.be.true;
             done();
@@ -44,8 +44,9 @@ describe("JSON Schema Check", () => {
         })
 
         it("CoAP TD should validate", (done) => {
-            const td = fs.readFileSync(path.join(".", "coap", "calculator", "td.json"), { "encoding": "utf-8" });
+            const td = JSON.parse(fs.readFileSync(path.join(".", "coap", "calculator", "tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
+            console.log(validate.errors);
             expect(valid).to.be.true;
             done();
         });
@@ -59,22 +60,22 @@ describe("JSON Schema Check", () => {
         })
 
         it("MQTT TD should validate", (done) => {
-            const td = fs.readFileSync(path.join(".", "mqtt", "calculator", "td.json"), { "encoding": "utf-8" });
+            const td = JSON.parse(fs.readFileSync(path.join(".", "mqtt", "calculator", "tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             expect(valid).to.be.true;
             done();
         });
     })
 
-    describe("Modbus TDs", () => {
+    describe.skip("Modbus TDs", () => {
         let validate;
 
         before(() => {
             validate = ajv.compile(modbusSchema);
         })
 
-        it.skip("Modbus TD should validate", (done) => {
-            const td = fs.readFileSync(path.join(".", "modbus", "calculator", "td.json"), { "encoding": "utf-8" });
+        it("Modbus TD should validate", (done) => {
+            const td = JSON.parse(fs.readFileSync(path.join(".", "modbus", "calculator", "tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             expect(valid).to.be.true;
             done();

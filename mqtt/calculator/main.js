@@ -2,6 +2,7 @@ const mqtt = require("mqtt");
 const { parseArgs } = require("node:util");
 const fs = require("fs");
 const path = require("path");
+const { JsonPlaceholderReplacer } = require("json-placeholder-replacer");
 
 const hostname = "test.mosquitto.org";
 let portNumber = 1883;
@@ -26,13 +27,18 @@ const EVENTS = "events";
 
 const broker = mqtt.connect(`mqtt://${hostname}`, { port: portNumber });
 
-let thingDescription = fs.readFileSync(path.join(__dirname, "td.json"), { "encoding": "utf-8" });
-thingDescription = thingDescription.replace(/THING_NAME/g, thingName);
-thingDescription = thingDescription.replace(/PROPERTIES/g, PROPERTIES);
-thingDescription = thingDescription.replace(/ACTIONS/g, ACTIONS);
-thingDescription = thingDescription.replace(/EVENTS/g, EVENTS);
-thingDescription = thingDescription.replace(/HOSTNAME/g, hostname);
-thingDescription = thingDescription.replace(/PORT_NUMBER/g, portNumber);
+let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "tm.json"), { "encoding": "utf-8" }));
+
+const placeholderReplacer = new JsonPlaceholderReplacer();
+placeholderReplacer.addVariableMap({
+    THING_NAME: thingName,
+    PROPERTIES: PROPERTIES,
+    ACTIONS: ACTIONS,
+    EVENTS: EVENTS,
+    HOSTNAME: hostname,
+    PORT_NUMBER: portNumber
+});
+const thingDescription = placeholderReplacer.replace(thingModel);
 
 broker.on("connect", () => {
     console.log(`Connected the host on port ${portNumber}`);
@@ -95,4 +101,4 @@ broker.subscribe(`${thingName}/${PROPERTIES}/isCool`);
 broker.subscribe(`${thingName}/${PROPERTIES}/isCool/writeproperty`); 
 broker.subscribe(`${thingName}/${ACTIONS}/add`);
 broker.subscribe(`${thingName}/${ACTIONS}/subtract`);
-broker.publish(`${thingName}`, thingDescription, { retain: true });
+broker.publish(`${thingName}`, JSON.stringify(thingDescription), { retain: true });

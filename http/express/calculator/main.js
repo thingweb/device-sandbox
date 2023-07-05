@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { parseArgs } = require("node:util");
+const { JsonPlaceholderReplacer } = require("json-placeholder-replacer");
 
 const app = express();
 
@@ -27,13 +28,18 @@ if (port && !isNaN(parseInt(port))) {
     portNumber = parseInt(port);
 }
 
-let thingDescription = fs.readFileSync(path.join(__dirname, "td.json"), { "encoding": "utf-8" });
-thingDescription = thingDescription.replace(/THING_NAME/g, thingName);
-thingDescription = thingDescription.replace(/PROPERTIES/g, PROPERTIES);
-thingDescription = thingDescription.replace(/ACTIONS/g, ACTIONS);
-thingDescription = thingDescription.replace(/EVENTS/g, EVENTS);
-thingDescription = thingDescription.replace(/HOSTNAME/g, hostname);
-thingDescription = thingDescription.replace(/PORT_NUMBER/g, portNumber);
+let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "tm.json"), { "encoding": "utf-8" }));
+
+const placeholderReplacer = new JsonPlaceholderReplacer();
+placeholderReplacer.addVariableMap({
+    THING_NAME: thingName,
+    PROPERTIES: PROPERTIES,
+    ACTIONS: ACTIONS,
+    EVENTS: EVENTS,
+    HOSTNAME: hostname,
+    PORT_NUMBER: portNumber
+});
+const thingDescription = placeholderReplacer.replace(thingModel);
 
 const reqParser = bodyParser.text({ type: "*/*" });
 
@@ -41,7 +47,7 @@ let result = 0;
 let lastChange = "";
 
 app.get(`/${thingName}`, (req, res) => {
-    res.send(thingDescription);
+    res.send(JSON.stringify(thingDescription));
 });
 
 app.get(`/${thingName}/${PROPERTIES}/result`, (req, res) => {

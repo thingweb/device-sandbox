@@ -7,7 +7,7 @@
      }
   ],
   "@type":"Thing",
-  "title":"THING_NAME",
+  "title":"{{THING_NAME}}",
   "description":"Mqtt Calculator Thing",
   "securityDefinitions":{
      "nosec_sc":{
@@ -25,7 +25,7 @@
         "observable":true,
         "forms":[
            {
-              "href":"mqtt://HOSTNAME:PORT_NUMBER/THING_NAME/PROPERTIES/result",
+              "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{PROPERTIES}}/result",
               "contentType":"application/json",
               "op":[
                  "observeproperty",
@@ -41,7 +41,7 @@
         "observable":true,
         "forms":[
            {
-              "href":"mqtt://HOSTNAME:PORT_NUMBER/THING_NAME/PROPERTIES/isCool",
+              "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{PROPERTIES}}/isCool",
               "contentType":"application/json",
               "op":[
                  "observeproperty",
@@ -49,7 +49,7 @@
               ]
            },
            {
-              "href":"mqtt://HOSTNAME:PORT_NUMBER/THING_NAME/PROPERTIES/isCool/writeproperty",
+              "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{PROPERTIES}}/isCool/writeproperty",
               "contentType":"application/json",
               "op":[
                  "writeproperty"
@@ -68,7 +68,7 @@
         },
         "forms":[
            {
-              "href":"mqtt://HOSTNAME:PORT_NUMBER/THING_NAME/ACTIONS/add",
+              "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{ACTIONS}}/add",
               "contentType":"application/json",
               "op":[
                  "invokeaction"
@@ -87,7 +87,7 @@
         },
         "forms":[
            {
-              "href":"mqtt://HOSTNAME:PORT_NUMBER/THING_NAME/ACTIONS/subtract",
+              "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{ACTIONS}}/subtract",
               "contentType":"application/json",
               "op":[
                  "invokeaction"
@@ -105,7 +105,7 @@
         },
         "forms":[
            {
-              "href":"mqtt://HOSTNAME:PORT_NUMBER/THING_NAME/EVENTS/update",
+              "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{EVENTS}}/update",
               "contentType":"application/json",
               "op":[
                  "subscribeevent",
