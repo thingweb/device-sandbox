@@ -40,6 +40,8 @@ placeholderReplacer.addVariableMap({
     PORT_NUMBER: portNumber
 });
 const thingDescription = placeholderReplacer.replace(thingModel);
+thingDescription["@type"] = "Thing"
+
 
 const reqParser = bodyParser.text({ type: "*/*" });
 

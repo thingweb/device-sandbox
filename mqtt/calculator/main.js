@@ -39,12 +39,13 @@ placeholderReplacer.addVariableMap({
     PORT_NUMBER: portNumber
 });
 const thingDescription = placeholderReplacer.replace(thingModel);
+thingDescription["@type"] = "Thing"
 
 broker.on("connect", () => {
     console.log(`Connected the host on port ${portNumber}`);
 });
 
-let isCool = true;
+let calculatorName = "Calculator";
 let result = 0;
 
 broker.on("message", (topic, payload, packet) => {
@@ -60,12 +61,12 @@ broker.on("message", (topic, payload, packet) => {
             console.log(`Result is : ${result}`);
         }
 
-        if (segments.length === 3 && segments[2] === "isCool") {
-            console.log(`Thing isCool: ${isCool}`);
+        if (segments.length === 3 && segments[2] === "calculatorName") {
+            console.log(`Calculator Name: ${calculatorName}`);
         }
 
-        if (segments.length === 4 && segments[2] === "isCool" && segments[3] === "writeproperty") {
-            isCool = payload.toString() === "true";
+        if (segments.length === 4 && segments[2] === "calculatorName" && segments[3] === "writeproperty") {
+            calculatorName = payload.toString();
         }
     }
 
@@ -97,8 +98,8 @@ setInterval(() => {
 }, 500);
 
 broker.subscribe(`${thingName}/${PROPERTIES}/result`);
-broker.subscribe(`${thingName}/${PROPERTIES}/isCool`); 
-broker.subscribe(`${thingName}/${PROPERTIES}/isCool/writeproperty`); 
+broker.subscribe(`${thingName}/${PROPERTIES}/calculatorName`); 
+broker.subscribe(`${thingName}/${PROPERTIES}/calculatorName/writeproperty`); 
 broker.subscribe(`${thingName}/${ACTIONS}/add`);
 broker.subscribe(`${thingName}/${ACTIONS}/subtract`);
 broker.publish(`${thingName}`, JSON.stringify(thingDescription), { retain: true });

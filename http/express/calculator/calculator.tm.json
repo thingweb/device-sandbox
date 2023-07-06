@@ -6,7 +6,7 @@
           "@language":"en"
        }
     ],
-    "@type":"Thing",
+    "@type":"tm:ThingModel",
     "title":"{{THING_NAME}}",
     "description":"Http Express Calculator Thing",
     "securityDefinitions":{

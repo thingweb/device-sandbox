@@ -38,6 +38,7 @@ placeholderReplacer.addVariableMap({
     PORT_NUMBER: portNumber
 });
 const thingDescription = placeholderReplacer.replace(thingModel);
+thingDescription["@type"] = "Thing"
 
 
 let result = 0;
@@ -48,11 +49,11 @@ server.on('request', (req, res) => {
   if (segments[1] !== thingName) {
     res.code = 404;
     res.end("Thing does not exist!");
-  }
-
-  if (!segments[2]) {
-    if (req.method === "GET") {
-        res.end(JSON.stringify(thingDescription));
+  } else {
+    if (!segments[2]) {
+        if (req.method === "GET") {
+            res.end(JSON.stringify(thingDescription));
+        }
     }
   }
 
