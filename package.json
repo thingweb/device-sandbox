@@ -10,7 +10,7 @@
     "thing",
     "iot"
   ],
-  "workspaces": ["./packages/**"],
+  "workspaces": ["./things/**"],
   "author": "Hasan Eroglu",
   "license": "ISC",
   "devDependencies": {

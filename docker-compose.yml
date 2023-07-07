@@ -1,14 +1,14 @@
 version: '3'
 services: 
   coap-calculator:
-    build: ./packages/coap/calculator/
+    build: ./things/coap/calculator/
     ports:
-      - "5683/udp:5683/udp"
+      - "5683:5683/udp"
   http-express-calculator:
-    build: ./packages/http/express/calculator/
+    build: ./things/http/express/calculator/
     ports:
       - "3000:3000"
   mqtt-calculator:
-    build: ./packages/mqtt/calculator/
+    build: ./things/mqtt/calculator/
     ports:
       - "1883:1883"
