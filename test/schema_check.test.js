@@ -29,7 +29,7 @@ describe("JSON Schema Check", () => {
         })
 
         it("HTTP Express TD should validate", (done) => {
-            const td = JSON.parse(fs.readFileSync(path.join(".", "http", "express", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
+            const td = JSON.parse(fs.readFileSync(path.join(".", "packages", "http", "express", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             expect(valid).to.be.true;
             done();
@@ -44,7 +44,7 @@ describe("JSON Schema Check", () => {
         })
 
         it("CoAP TD should validate", (done) => {
-            const td = JSON.parse(fs.readFileSync(path.join(".", "coap", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
+            const td = JSON.parse(fs.readFileSync(path.join(".", "packages", "coap", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             console.log(validate.errors);
             expect(valid).to.be.true;
@@ -60,7 +60,7 @@ describe("JSON Schema Check", () => {
         })
 
         it("MQTT TD should validate", (done) => {
-            const td = JSON.parse(fs.readFileSync(path.join(".", "mqtt", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
+            const td = JSON.parse(fs.readFileSync(path.join(".", "packages", "mqtt", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             expect(valid).to.be.true;
             done();
@@ -75,7 +75,7 @@ describe("JSON Schema Check", () => {
         })
 
         it("Modbus TD should validate", (done) => {
-            const td = JSON.parse(fs.readFileSync(path.join(".", "modbus", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
+            const td = JSON.parse(fs.readFileSync(path.join(".", "packages", "modbus", "calculator", "calculator.tm.json"), { "encoding": "utf-8" }));
             const valid = validate(td);
             expect(valid).to.be.true;
             done();
