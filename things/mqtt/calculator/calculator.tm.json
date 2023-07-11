@@ -34,6 +34,22 @@
            }
         ]
      },
+     "lastChange":{
+      "type":"string",
+      "readOnly":false,
+      "writeOnly":false,
+      "observable":true,
+      "forms":[
+         {
+            "href":"mqtt://{{HOSTNAME}}:{{PORT_NUMBER}}/{{THING_NAME}}/{{PROPERTIES}}/lastChange",
+            "contentType":"application/json",
+            "op":[
+               "observeproperty",
+               "unobserveproperty"
+            ]
+         }
+      ]
+     },
      "calculatorName":{
         "type":"boolean",
         "readOnly":false,
