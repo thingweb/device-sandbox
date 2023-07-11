@@ -4,7 +4,7 @@ Collection of Things (node-wot or not) that can be used for testing and explorat
 
 Device sandbox uses npm workspaces and running `npm install` at the root directory would suffice to install all the packages needed for every device. After packages are installed, running `node main.js` would run the thing. For port configuration, running either `node main.js -p 1000` or `node main.js --port 1000` would start the thing on port 1000.
 
-It is also possible start the devices inside a container, for that running `docker-compose up` at the root directory would build the and run the containers. For custom configuration, refer to the `Dockerfile` of each device, `docker-compose.yml`.
+It is also possible start the devices inside a container, for that running `docker-compose up` at the root directory would build the and run the containers. For custom configuration, take look at the `Dockerfile` of each device or `docker-compose.yml`.
 
 ## Current Devices
 - ### Calculator
