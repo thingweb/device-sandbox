@@ -16,6 +16,7 @@ It is also possible start the devices inside a container, for that running `dock
       - JavaScript
     - HTTP
       - JavaScript Express framework
+      - Python Flask framework
     - MQTT
       - JavaScript
     - Modbus
