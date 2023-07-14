@@ -47,6 +47,7 @@ broker.on("connect", () => {
 
 let calculatorName = "Calculator";
 let result = 0;
+let lastChange = "";
 
 broker.on("message", (topic, payload, packet) => {
     console.log(`Messaged to the topic ${topic}`);
@@ -60,6 +61,10 @@ broker.on("message", (topic, payload, packet) => {
         if (segments.length === 3 && segments[2] === "result") {
             console.log(`Result is : ${result}`);
         }
+
+        if (segments.length === 3 && segments[2] === "lastChange") {
+            console.log(`Last change : ${lastChange}`);
+        }        
 
         if (segments.length === 3 && segments[2] === "calculatorName") {
             console.log(`Calculator Name: ${calculatorName}`);
@@ -78,6 +83,7 @@ broker.on("message", (topic, payload, packet) => {
                 return;
             } else {
                 result += parsedValue;
+                lastChange = (new Date()).toLocaleTimeString();
             }
         }
 
@@ -88,6 +94,7 @@ broker.on("message", (topic, payload, packet) => {
                 return;
             } else {
                 result -= parsedValue;
+                lastChange = (new Date()).toLocaleTimeString();
             }
         }
     }
@@ -98,6 +105,7 @@ setInterval(() => {
 }, 500);
 
 broker.subscribe(`${thingName}/${PROPERTIES}/result`);
+broker.subscribe(`${thingName}/${PROPERTIES}/lastChange`);
 broker.subscribe(`${thingName}/${PROPERTIES}/calculatorName`); 
 broker.subscribe(`${thingName}/${PROPERTIES}/calculatorName/writeproperty`); 
 broker.subscribe(`${thingName}/${ACTIONS}/add`);

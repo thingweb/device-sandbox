@@ -21,20 +21,21 @@ if (port && !isNaN(parseInt(port))) {
 }
 
 const vector = {
-    getInputRegister: function(addr: any, unitID: any) {
+    getInputRegister: function(addr, unitID) {
         // Synchronous handling
-        console.log("getInputRegister");
+        console.log("getInputRegister", addr);
         return addr;
     },
-    getHoldingRegister: function(addr: number, unitID: any, callback: (arg0: null, arg1: any) => void) {
+    getHoldingRegister: function(addr, unitID, callback) {
         // Asynchronous handling (with callback)
         setTimeout(function() {
             // callback = function(err, value)
-            console.log("getHoldingRegister");
+            console.log("getHoldingRegister", addr);
+            console.log(callback);
             callback(null, addr + 8000);
         }, 10);
     },
-    getCoil: function(addr: number, unitID: any) {
+    getCoil: function(addr, unitID) {
         // Asynchronous handling (with Promises, async/await supported)
         return new Promise(function(resolve) {
             setTimeout(function() {
@@ -43,17 +44,17 @@ const vector = {
             }, 10);
         });
     },
-    setRegister: function(addr: any, value: any, unitID: any) {
+    setRegister: function(addr, value, unitID) {
         // Asynchronous handling supported also here
         console.log("set register", addr, value, unitID);
         return;
     },
-    setCoil: function(addr: any, value: any, unitID: any) {
+    setCoil: function(addr, value, unitID) {
         // Asynchronous handling supported also here
         console.log("set coil", addr, value, unitID);
         return;
     },
-    readDeviceIdentification: function(addr: any) {
+    readDeviceIdentification: function(addr) {
         return {
             0x00: "MyVendorName",
             0x01: "MyProductCode",
@@ -69,7 +70,7 @@ const vector = {
 console.log(`ModbusTCP listening on modbus+tcp://${hostname}:${portNumber}`);
 const serverTCP = new ServerTCP(vector, { host: hostname, port: portNumber, debug: true, unitID: 2 });
 
-serverTCP.on("socketError", function(err: any){
+serverTCP.on("socketError", function(err){
     // Handle socket error if needed, can be ignored
     console.error(err);
 });
