@@ -42,6 +42,7 @@ thingDescription["@type"] = "Thing"
 
 
 let result = 0;
+let lastChange = "";
 
 server.on('request', (req, res) => {
   const segments = req.url.split('/');
@@ -63,6 +64,12 @@ server.on('request', (req, res) => {
             res.end(result.toString());
         }
     }
+
+    if (segments[3] === "lastChange") {
+        if (req.method === "GET") {
+            res.end(lastChange);
+        }
+    }
   }
 
   if (segments[2] === "actions" && req.method === "POST") {
@@ -74,6 +81,7 @@ server.on('request', (req, res) => {
             res.end("Input should be a valid integer")
         } else {
             result += parsedInput;
+            lastChange = (new Date()).toLocaleTimeString();
             res.end(result.toString());
         }
     }
@@ -86,6 +94,7 @@ server.on('request', (req, res) => {
             res.end("Input should be a valid integer")
         } else {
             result -= parsedInput;
+            lastChange = (new Date()).toLocaleTimeString();
             res.end(result.toString());
         }
     }
