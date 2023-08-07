@@ -10,6 +10,7 @@
     "modbus"
   ],
   "author": "Eclipse Thingweb <thingweb-dev@eclipse.org> (https://thingweb.io/)",
+  "license": "EPL-2.0 OR W3C-20150513",
   "dependencies": {
     "json-placeholder-replacer": "^1.0.35",
     "modbus": "^1.1.1",
