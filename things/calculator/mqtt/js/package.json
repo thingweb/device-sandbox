@@ -1,0 +1,17 @@
+{
+  "name": "mqtt-calculator",
+  "version": "1.0.0",
+  "description": "MQTT Calculator",
+  "main": "main.js",
+  "keywords": [
+    "wot",
+    "thing",
+    "iot",
+    "mqtt"
+  ],
+  "author": "Eclipse Thingweb <thingweb-dev@eclipse.org> (https://thingweb.io/)",
+  "dependencies": {
+    "json-placeholder-replacer": "^1.0.35",
+    "mqtt": "^4.3.7"
+  }
+}
