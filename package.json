@@ -1,9 +1,9 @@
 {
-  "name": "device-sandbox",
+  "name": "test-things",
   "version": "1.0.0",
-  "description": "Device Sandbox",
+  "description": "Test Things",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha ./things/**/*.test.js"
   },
   "keywords": [
     "wot",
@@ -11,8 +11,8 @@
     "iot"
   ],
   "workspaces": ["./things/**"],
-  "author": "Hasan Eroglu",
-  "license": "ISC",
+  "author": "Eclipse Thingweb <thingweb-dev@eclipse.org> (https://thingweb.io/)",
+  "license": "EPL-2.0 OR W3C-20150513",
   "devDependencies": {
     "@types/express": "^4.17.17",
     "ajv": "^8.12.0",

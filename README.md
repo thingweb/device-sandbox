@@ -24,12 +24,13 @@ Calculator is a simple device, which has a read only `result` variable and depen
   - JavaScript
 - MQTT
   - JavaScript
-  - Note: To be able represent MQTT's write property feature, there is a MQTT specific write only `calculatorName` variable. 
 - Modbus
   - JavaScript (WIP)
 
 ## How to Run
 
 You can start the devices inside a container, for that running `docker-compose up` at the root directory builds and runs the containers. For custom configuration, take look at the `Dockerfile` of each device or [docker-compose.yml](./docker-compose.yml).
+
+For running the things separately, using their `Dockerfile`'s, `docker build -t <image-tag> -f ./Dockerfile ../../` command must be used to give the context to be able copy `tm.json` into the container.
 
 For Node.js based devices, we use npm workspaces and running `npm install` at the root directory installs all the packages needed for every device. After packages are installed, running `node main.js` would run the thing. For port configuration, running either `node main.js -p 1000` or `node main.js --port 1000` would start the thing on port 1000.
