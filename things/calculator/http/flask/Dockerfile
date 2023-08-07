@@ -1,18 +1,16 @@
-FROM python:3.8-alpine
+FROM python:3.11-buster
+
+RUN pip install poetry
 
 WORKDIR /app
-
-COPY ./http/flask/requirements.txt .
-
-RUN pip install -r requirements.txt
 
 COPY ./calculator.tm.json .
 COPY ./http/flask .
 
 ENV TM_PATH=./calculator.tm.json 
 
-ENTRYPOINT [ "python" ]
+RUN poetry install
 
-CMD ["main.py" ]
+CMD [ "poetry", "run", "python", "main.py" ]
 
 EXPOSE 5000
