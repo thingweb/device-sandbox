@@ -12,6 +12,9 @@
   ],
   "workspaces": ["./things/**"],
   "author": "Eclipse Thingweb <thingweb-dev@eclipse.org> (https://thingweb.io/)",
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "ajv": "^8.12.0",
