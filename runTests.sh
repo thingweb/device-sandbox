@@ -53,4 +53,4 @@ for tmd in ./things/* ; do
     fi
 done
 
-exit 0;
+exit $return_value;
