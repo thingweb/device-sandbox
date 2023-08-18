@@ -48,7 +48,6 @@ placeholderReplacer.addVariableMap({
 const thingDescription = placeholderReplacer.replace(thingModel);
 thingDescription["@type"] = "Thing"
 
-
 let result = 0;
 let lastChange = "";
 

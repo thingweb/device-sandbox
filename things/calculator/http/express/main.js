@@ -4,10 +4,11 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const { parseArgs } = require("node:util");
 const { JsonPlaceholderReplacer } = require("json-placeholder-replacer");
+require("dotenv").config();
 
 const app = express();
 
-const hostname = "localhost";
+const hostname = "127.0.0.1";
 let portNumber = 3000;
 
 const thingName = "http-express-calculator";
@@ -28,7 +29,13 @@ if (port && !isNaN(parseInt(port))) {
     portNumber = parseInt(port);
 }
 
-let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "calculator.tm.json"), { "encoding": "utf-8" }));
+let tmPath = process.env.TM_PATH;
+
+if (process.platform === "win32") {
+    tmPath.split(path.sep).join(path.win32.sep);
+}
+
+let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, tmPath)));
 
 const placeholderReplacer = new JsonPlaceholderReplacer();
 placeholderReplacer.addVariableMap({
@@ -50,15 +57,15 @@ let result = 0;
 let lastChange = "";
 
 app.get(`/${thingName}`, (req, res) => {
-    res.send(JSON.stringify(thingDescription));
+    res.end(JSON.stringify(thingDescription));
 });
 
 app.get(`/${thingName}/${PROPERTIES}/result`, (req, res) => {
-    res.send(result.toString());
+    res.end(result.toString());
 });
 
 app.get(`/${thingName}/${PROPERTIES}/lastChange`, (req,res) => {
-    res.send(lastChange);
+    res.end(lastChange);
 });
 
 app.post(`/${thingName}/${ACTIONS}/add`, reqParser, (req, res) => {
@@ -69,7 +76,7 @@ app.post(`/${thingName}/${ACTIONS}/add`, reqParser, (req, res) => {
     } else {
         result += parsedInput;
         lastChange = (new Date()).toLocaleTimeString();
-        res.send(result.toString());
+        res.end(result.toString());
     }
 });
 
@@ -81,7 +88,7 @@ app.post(`/${thingName}/${ACTIONS}/subtract`, reqParser, (req, res) => {
     } else {
         result -= parsedInput;
         lastChange = (new Date()).toLocaleTimeString();
-        res.send(result.toString());
+        res.end(result.toString());
     }
 });
 
@@ -105,6 +112,6 @@ app.get(`/${thingName}/${EVENTS}/change`, (req, res) => {
     })
 })
 
-app.listen(portNumber, () => {
+app.listen(portNumber, hostname, () => {
     console.log(`Http thing listening on port ${portNumber}`);
 });

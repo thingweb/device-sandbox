@@ -8,7 +8,7 @@ const ajv = new Ajv({ "strict": false, "allErrors": true, "validateFormats": fal
 
 const expect = chai.expect;
 
-describe("Thing Model Schema Check", () => {
+describe("Calculator", () => {
     let validate; 
     const tmFilepath = path.join(__dirname, "tm-json-schema-validation.json");
 
@@ -43,7 +43,7 @@ describe("Thing Model Schema Check", () => {
         })
     })
 
-    it("should validate", () => {
+    it("should have a valid TM", () => {
         const calculatorTM = require("./calculator.tm.json");
         const valid = validate(calculatorTM);
         expect(valid).to.be.true;

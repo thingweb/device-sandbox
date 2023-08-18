@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Test Things",
   "scripts": {
-    "test": "mocha ./things/**/*.test.js"
+    "test": "./runTests.sh"
   },
   "keywords": [
     "wot",
