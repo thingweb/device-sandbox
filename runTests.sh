@@ -11,7 +11,7 @@ for tmd in ./things/* ; do
     fi 
     
     echo "* Testing $(basename $tmd)..."
-    tm_result="$(./node_modules/mocha/bin/mocha.js $tmd/*.test.js)"
+    tm_result="$(./node_modules/mocha/bin/mocha.js $tm_test_path)"
 
     if [ -z "$tm_result" ];
     then
@@ -34,7 +34,7 @@ for tmd in ./things/* ; do
                 continue
             fi 
 
-            td_result="$(./node_modules/mocha/bin/mocha.js $tdd/*.test.js)"
+            td_result="$(./node_modules/mocha/bin/mocha.js $td_test_path)"
             
             if [ -z "$td_result" ];
             then
