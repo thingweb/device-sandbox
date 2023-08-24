@@ -20,6 +20,7 @@ for tmd in ./things/* ; do
     elif [[ $tm_result =~ "failing" ]]; 
     then
         echo -e "\033[0;31m** TM test failed for the thing '$(basename $tmd)'. TDs will not be tested.\033[0m"
+        echo $tm_result
         echo "-----"
         return_value=1
         continue

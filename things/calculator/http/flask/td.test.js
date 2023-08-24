@@ -1,7 +1,5 @@
 const Ajv = require("ajv");
 const chai = require("chai");
-const fs = require("fs");
-const path = require("path");
 const http = require("http");
 const https = require("https");
 
@@ -15,7 +13,6 @@ let thingProcess;
 
 describe("Calculator HTTP Flask", () => {
     let validate; 
-    const tdFilepath = path.join(__dirname, "td-json-schema-validation.json");
 
     before((done) => {
         thingProcess = exec(
@@ -23,49 +20,40 @@ describe("Calculator HTTP Flask", () => {
             { cwd: __dirname }
         );
         
-        const file = fs.createWriteStream(tdFilepath);
         https.get("https://raw.githubusercontent.com/w3c/wot-thing-description/main/validation/td-json-schema-validation.json", function(response) {
-            response.pipe(file);
+            const body = [];
+            response.on("data", (chunk) => {
+                body.push(chunk);
+            });
 
-            // after download completed close filestream
-            file.on("finish", () => {
-                file.close();
-                const tdSchema = require("./td-json-schema-validation.json");
+            response.on("end", () => {
+                const tdSchema = JSON.parse(Buffer.concat(body).toString());
                 validate = ajv.compile(tdSchema);
                 done();
             });
         });
-
     })
 
-    after((done) => {
+    after(() => {
         thingProcess.kill();
-        fs.stat(tdFilepath, function(err, stats) {
-            if (err) {
-                return console.error(err);
-            }
-
-            fs.unlink(tdFilepath, function(err) {
-                if (err) {
-                    return console.error(err);
-                }
-
-                done();
-            })
-        })
     })
 
     it("should have a valid TD", (done) => {
         // wait for server to initiate
         setTimeout(() => { 
             http.get(`http://127.0.0.1:${port}/http-flask-calculator`, function(response) {
-            response.on("data", (chunk) => {
-                    const valid = validate(JSON.parse(chunk.toString()));
+                const body = [];
+                response.on("data", (chunk) => {
+                    body.push(chunk);
+                });
+                
+                response.on("end", () => {
+                    const result = JSON.parse(Buffer.concat(body).toString());
+                    const valid = validate(result);
                     expect(valid).to.be.true;
                     done();
                 })
-            }) 
-        }, 250);
-        
+            })
+        }, 300);
     });
 })
