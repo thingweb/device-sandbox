@@ -35,7 +35,7 @@ for tmd in ./things/* ; do
                 continue
             fi 
 
-            td_result="$(./node_modules/mocha/bin/mocha.js $td_test_path)"
+            td_result="$(./node_modules/mocha/bin/mocha.js -exit $td_test_path)"
             
             if [ -z "$td_result" ];
             then
