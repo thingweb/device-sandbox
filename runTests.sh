@@ -43,6 +43,7 @@ for tmd in ./things/* ; do
             elif [[ $td_result =~ "failing" ]]; 
             then
                 echo -e "\033[0;31m** TD test failed for the thing $tdd.\033[0m"
+                echo $td_result
                 echo "-----"
                 return_value=1
                 continue
