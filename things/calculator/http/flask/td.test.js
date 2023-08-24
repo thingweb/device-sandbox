@@ -54,6 +54,6 @@ describe("Calculator HTTP Flask", () => {
                     done();
                 })
             })
-        }, 300);
+        }, 1000);
     });
 })

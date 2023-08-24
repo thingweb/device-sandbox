@@ -64,6 +64,6 @@ describe("Calculator HTTP JS", () => {
                     }
                 });
             })
-        }, 20);
+        }, 1000);
     });
 })
