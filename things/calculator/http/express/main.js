@@ -114,4 +114,5 @@ app.get(`/${thingName}/${EVENTS}/change`, (req, res) => {
 
 app.listen(portNumber, hostname, () => {
     console.log(`Http thing listening on port ${portNumber}`);
+    console.log("ThingIsReady");
 });

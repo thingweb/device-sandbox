@@ -3,23 +3,15 @@ const chai = require("chai");
 const http = require("http");
 const https = require("https");
 
-const exec = require('child_process').exec;
-
 const ajv = new Ajv({ "strict": false, "allErrors": true, "validateFormats": false });
 
 const expect = chai.expect;
 let port = 3000
-let thingProcess;
 
 describe("Calculator HTTP JS", () => {
     let validate; 
 
     before((done) => {
-        thingProcess = exec(
-            `node main.js -p ${port}`,
-            { cwd: __dirname }
-        );
-        
         https.get("https://raw.githubusercontent.com/w3c/wot-thing-description/main/validation/td-json-schema-validation.json", function(response) {
 
             const body = [];
@@ -39,31 +31,24 @@ describe("Calculator HTTP JS", () => {
         });
     })
 
-    after(() => {
-        thingProcess.kill();
-    })
-
     it("should have a valid TD", (done) => {
-        // wait for server to initiate
-        setTimeout(() => { 
-            http.get(`http://localhost:${port}/http-express-calculator`, function(response) {
+        http.get(`http://localhost:${port}/http-express-calculator`, function(response) {
 
-                const body = [];
-                response.on("data", (chunk) => {
-                    body.push(chunk);
-                });
-                
-                response.on("end", () => {
-                    try {
-                        const result = JSON.parse(Buffer.concat(body).toString());
-                        const valid = validate(result);
-                        expect(valid).to.be.true;
-                        done();
-                    } catch (error) {
-                        console.log(error);
-                    }
-                });
-            })
-        }, 1000);
+            const body = [];
+            response.on("data", (chunk) => {
+                body.push(chunk);
+            });
+            
+            response.on("end", () => {
+                try {
+                    const result = JSON.parse(Buffer.concat(body).toString());
+                    const valid = validate(result);
+                    expect(valid).to.be.true;
+                    done();
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+        })
     });
 })
