@@ -134,4 +134,5 @@ server.on('request', (req, res) => {
 
 server.listen(portNumber, () => {
     console.log(`Started listening to on port ${portNumber}...`);
+    console.log("ThingIsReady"); 
 })

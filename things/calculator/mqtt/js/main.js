@@ -108,3 +108,4 @@ broker.subscribe(`${thingName}/${PROPERTIES}/lastChange`);
 broker.subscribe(`${thingName}/${ACTIONS}/add`);
 broker.subscribe(`${thingName}/${ACTIONS}/subtract`);
 broker.publish(`${thingName}`, JSON.stringify(thingDescription), { retain: true });
+console.log("ThingIsReady");
