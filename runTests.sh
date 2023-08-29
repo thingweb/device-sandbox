@@ -37,7 +37,7 @@ for tmd in ./things/* ; do
 
             current_path=$(pwd);
             cd $tdd;
-            td_result="$(../../../../../node_modules/mocha/bin/mocha.js *.test.js)"
+            td_result="$(../../../../../node_modules/mocha/bin/mocha.js)"
             td_exit_code=$?;
             cd $current_path;
 
