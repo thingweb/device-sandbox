@@ -27,17 +27,17 @@ for tmd in ./things/* ; do
     else
         echo -e "\033[0;32m** TM test successful for $tmd.\033[0m"
         # logic for every td test directory (tdd)
-        for tdd in $tmd/*/*/test ; do
-            td_test_path="$tdd/*.test.js"
+        for tdd in $tmd/*/* ; do
+            td_test_path="$tdd/test"
 
-            if [ ! -f $td_test_path ];
+            if [ ! -d $td_test_path ];
             then
                 continue
             fi 
 
             current_path=$(pwd);
             cd $tdd;
-            td_result="$(../../../../../node_modules/mocha/bin/mocha.js)"
+            td_result="$(../../../../node_modules/mocha/bin/mocha.js)"
             td_exit_code=$?;
             cd $current_path;
 
