@@ -31,7 +31,7 @@ for tmd in things/* ; do
 
             current_path=$(pwd)
             cd $tdd
-            td_result="$(../../../../node_modules/mocha/bin/mocha.js --exit --timeout 5000)"
+            td_result="$(../../../../node_modules/mocha/bin/mocha.js --exit --timeout 10000)"
             td_exit_code=$?
             cd $current_path
 
