@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Test Things",
   "scripts": {
-    "setup": "./installDependencies.sh",
-    "test": "./runTests.sh"
+    "setup": "./.github/scripts/installDependencies.sh",
+    "test": "./.github/scripts/runTests.sh"
   },
   "keywords": [
     "wot",

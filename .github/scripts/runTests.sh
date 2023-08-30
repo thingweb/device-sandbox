@@ -3,14 +3,14 @@
 return_value=0
 
 # logic for every tm test directory (tmd)
-for tmd in ../../things/* ; do
+for tmd in things/* ; do
     tm_test_path="$tmd/*.test.js"
     if [ ! -f $tm_test_path ]; then
         continue
     fi 
     
     echo "* Testing $(basename $tmd)..."
-    tm_result="$(../../node_modules/mocha/bin/mocha.js $tm_test_path)"
+    tm_result="$(node_modules/mocha/bin/mocha.js $tm_test_path)"
     tm_exit_code=$?
 
     if [ $tm_exit_code -ne 0 ]; then

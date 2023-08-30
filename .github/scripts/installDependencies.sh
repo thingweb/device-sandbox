@@ -4,12 +4,12 @@
 npm ci
 
 # Install dependencies for non-npm packages
-for protocol_directory in ../../things/*/*/* ; do
+for protocol_directory in things/*/*/* ; do
     current_path="$(pwd)"
     cd "$protocol_directory"
 
     # Install dependencies for poetry 
-    if [ -f "./poetry.lock" ]; then
+    if [ -f "poetry.lock" ]; then
         poetry install
     fi
 
