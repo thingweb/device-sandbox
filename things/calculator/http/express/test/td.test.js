@@ -27,6 +27,9 @@ describe("Calculator HTTP JS", () => {
                     resolve("Success");
                 }
             })
+            thingProcess.stderr.on("data", (data) => {
+                reject(`Error: ${data}`);
+            })
             thingProcess.on("error", (error) => {
                 reject(`Error: ${error}`);
             })

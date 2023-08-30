@@ -27,6 +27,9 @@ describe("Calculator HTTP Flask", () => {
                     resolve("Success");
                 }
             })
+            thingProcess.stderr.on("data", (data) => {
+                console.log(`Data: ${data}`);
+            })
             thingProcess.on("error", (error) => {
                 reject(`Error: ${error}`);
             })
