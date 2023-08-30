@@ -3,22 +3,17 @@
 return_value=0
 
 # logic for every tm test directory (tmd)
-for tmd in ./things/* ; do
+for tmd in ../../things/* ; do
     tm_test_path="$tmd/*.test.js"
-    if [ ! -f $tm_test_path ];
-    then
+    if [ ! -f $tm_test_path ]; then
         continue
     fi 
     
     echo "* Testing $(basename $tmd)..."
-    tm_result="$(./node_modules/mocha/bin/mocha.js $tm_test_path)"
+    tm_result="$(../../node_modules/mocha/bin/mocha.js $tm_test_path)"
+    tm_exit_code=$?
 
-    if [ -z "$tm_result" ];
-    then
-        echo "-----"
-        continue
-    elif [[ $tm_result =~ "failing" ]]; 
-    then
+    if [ $tm_exit_code -ne 0 ]; then
         echo -e "\033[0;31m** TM test failed for the thing '$(basename $tmd)'. TDs will not be tested.\033[0m"
         echo $tm_result
         echo "-----"
@@ -30,16 +25,15 @@ for tmd in ./things/* ; do
         for tdd in $tmd/*/* ; do
             td_test_path="$tdd/test"
 
-            if [ ! -d $td_test_path ];
-            then
+            if [ ! -d $td_test_path ]; then
                 continue
             fi 
 
-            current_path=$(pwd);
-            cd $tdd;
+            current_path=$(pwd)
+            cd $tdd
             td_result="$(../../../../node_modules/mocha/bin/mocha.js --exit --timeout 5000)"
-            td_exit_code=$?;
-            cd $current_path;
+            td_exit_code=$?
+            cd $current_path
 
             if [ $td_exit_code -ne 0 ]; then
                 echo -e "\033[0;31m** TD test failed for the thing $tdd.\033[0m"
@@ -54,4 +48,4 @@ for tmd in ./things/* ; do
     fi
 done
 
-exit $return_value;
+exit $return_value
