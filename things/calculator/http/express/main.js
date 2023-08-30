@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const app = express();
 
-const hostname = "127.0.0.1";
+const hostname = "localhost";
 let portNumber = 3000;
 
 const thingName = "http-express-calculator";
@@ -112,7 +112,7 @@ app.get(`/${thingName}/${EVENTS}/change`, (req, res) => {
     })
 })
 
-app.listen(portNumber, hostname, () => {
+app.listen(portNumber, () => {
     console.log(`Http thing listening on port ${portNumber}`);
     console.log("ThingIsReady");
 });
