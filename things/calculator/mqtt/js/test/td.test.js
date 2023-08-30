@@ -28,6 +28,9 @@ describe("Calculator MQTT JS", () => {
                     resolve("Success");
                 }
             })
+            thingProcess.on("error", (error) => {
+                reject(`Error: ${error}`);
+            })
             thingProcess.on("close", () => {
                 reject("Failed to initiate the main script.")
             })
@@ -62,16 +65,17 @@ describe("Calculator MQTT JS", () => {
     
     it("should have a valid TD", (done) => {
         const broker = mqtt.connect(`mqtt://${hostname}`, { port: port });
-
         broker.subscribe("mqtt-calculator");
 
+        let valid = false;
+
         broker.on("message", (topic, payload, packet) => {
-            const valid = validate(JSON.parse(payload.toString()));
-            expect(valid).to.be.true;
+            valid = validate(JSON.parse(payload.toString()));
             broker.end();
         });
 
         broker.on("close", () => {
+            expect(valid).to.be.true;
             done();
         })
     });

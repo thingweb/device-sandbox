@@ -27,6 +27,9 @@ describe("Calculator HTTP Flask", () => {
                     resolve("Success");
                 }
             })
+            thingProcess.on("error", (error) => {
+                reject(`Error: ${error}`);
+            })
             thingProcess.on("close", () => {
                 reject("Failed to initiate the main script.")
             })
