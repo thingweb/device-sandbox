@@ -23,7 +23,7 @@ describe("Calculator HTTP JS", () => {
                 { cwd: path.join(__dirname, "..") }
             );
             thingProcess.stdout.on("data", (data) => {
-                if (data.toString().trim() === "ThingIsReady") {
+                if (data.toString().includes("ThingIsReady")) {
                     resolve("Success");
                 }
             })
