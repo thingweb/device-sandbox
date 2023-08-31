@@ -113,6 +113,6 @@ app.get(`/${thingName}/${EVENTS}/change`, (req, res) => {
 })
 
 app.listen(portNumber, () => {
-    console.log(`Http thing listening on port ${portNumber}`);
+    console.log(`Started listening to on port ${portNumber}`);
     console.log("ThingIsReady");
 });

@@ -50,7 +50,7 @@ const thingDescription = placeholderReplacer.replace(thingModel);
 thingDescription["@type"] = "Thing"
 
 broker.on("connect", () => {
-    console.log(`Connected the host on port ${portNumber}`);
+    console.log(`Connected to broker via port ${portNumber}`);
 });
 
 let result = 0;
