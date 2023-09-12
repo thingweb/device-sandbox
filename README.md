@@ -9,6 +9,36 @@ The protocols you can currently test are:
 - MQTT
 - Modbus
 
+## Dependencies
+
+The project has several dependencies. Currently `JavaScript` and `Python` is used for simulating different devices. Every device has its own dependencies and they should be handled elegantly. For that reason, `Node.js` is used for JS code and `poetry` is used for Python code to run the scripts and handle the dependencies.
+
+## Testing
+
+For testing JavaScript Testing Framework `mocha` is used. Therefore, the tests are written in JavaScript.
+Every Thing should have its Thing Model and Thing Description validation test. 
+Thing Model validation test should be put under Thing's main directory and named as `tm.test.json`.
+Thing Description validation test should be put under protocol and programming language/framework's test directory and named as `td.test.json`.
+For Thing Description validation test, the device should boot up and to understand the device booted up without any error, a message `"ThingIsReady"` is expected to be prompted to the console by the device.
+
+## Adding a new Thing
+
+If you are going to add a different protocol for an existing Thing:
+1. Create a directory such as `<your_protocol>/<your_programming_language/your_framework>/`.
+2. Create your project files and write your code inside this directory.
+3. If you are adding a new programming language, please use a tidy dependency management tool for the programming language. Otherwise use already used tools and frameworks not to overcomplicate the project.
+4. Create your `test/` directory under your Thing's directory and add your test files there.  
+
+If you are going to add a different programming language/framework for an existing protocol:
+1. Create a directory such as `<existing_protocol>/<your_programming_language/your_framework>/`.
+2. Create your project files and write your code inside this directory.
+3. Please use a tidy dependency management tool for the programming language/framework. Otherwise use already used tools and frameworks not to overcomplicate the project.
+
+If you are going to add a completely new Thing:
+1. Create a directory such as `things/<your_thing_name>/`.
+2. Add your Thing Model under the previously created directory and name it such as `<your_thing_name>.tm.json`.
+3. Follow the steps above to add your protocol and programming language/framework.
+
 ## Current Devices
 
 ### Calculator
