@@ -48,7 +48,6 @@ placeholderReplacer.addVariableMap({
 const thingDescription = placeholderReplacer.replace(thingModel);
 thingDescription["@type"] = "Thing"
 
-
 let result = 0;
 let lastChange = "";
 
@@ -135,4 +134,5 @@ server.on('request', (req, res) => {
 
 server.listen(portNumber, () => {
     console.log(`Started listening to on port ${portNumber}...`);
+    console.log("ThingIsReady"); 
 })

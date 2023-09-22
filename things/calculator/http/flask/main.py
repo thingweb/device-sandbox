@@ -7,10 +7,19 @@ import json
 import argparse
 import os
 from dotenv import load_dotenv
+import logging
+import sys
+import click
 
 load_dotenv()
 
 app = Flask(__name__)
+log = logging.getLogger('werkzeug')
+log.disabled = True
+
+cli = sys.modules['flask.cli']
+
+cli.show_server_banner = lambda *x: click.echo("ThingIsReady")
 
 hostname = "0.0.0.0"
 portNumber = 5000
@@ -97,4 +106,4 @@ if args.port:
     port = args.port
 
 if __name__ == "__main__":
-    app.run(debug=True, host=hostname, port=port)
+    app.run(debug=False, host=hostname, port=port)

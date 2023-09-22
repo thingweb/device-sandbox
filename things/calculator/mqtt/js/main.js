@@ -3,6 +3,7 @@ const { parseArgs } = require("node:util");
 const fs = require("fs");
 const path = require("path");
 const { JsonPlaceholderReplacer } = require("json-placeholder-replacer");
+require("dotenv").config();
 
 const hostname = "test.mosquitto.org";
 let portNumber = 1883;
@@ -27,7 +28,13 @@ const EVENTS = "events";
 
 const broker = mqtt.connect(`mqtt://${hostname}`, { port: portNumber });
 
-let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, "calculator.tm.json"), { "encoding": "utf-8" }));
+let tmPath = process.env.TM_PATH;
+
+if (process.platform === "win32") {
+    tmPath.split(path.sep).join(path.win32.sep);
+}
+
+let thingModel = JSON.parse(fs.readFileSync(path.join(__dirname, tmPath)));
 
 const placeholderReplacer = new JsonPlaceholderReplacer();
 placeholderReplacer.addVariableMap({
@@ -43,7 +50,7 @@ const thingDescription = placeholderReplacer.replace(thingModel);
 thingDescription["@type"] = "Thing"
 
 broker.on("connect", () => {
-    console.log(`Connected the host on port ${portNumber}`);
+    console.log(`Connected to broker via port ${portNumber}`);
 });
 
 let result = 0;
@@ -101,3 +108,4 @@ broker.subscribe(`${thingName}/${PROPERTIES}/lastChange`);
 broker.subscribe(`${thingName}/${ACTIONS}/add`);
 broker.subscribe(`${thingName}/${ACTIONS}/subtract`);
 broker.publish(`${thingName}`, JSON.stringify(thingDescription), { retain: true });
+console.log("ThingIsReady");
