@@ -1,5 +1,10 @@
 # Device Sandbox
 
+Moved to Eclipse at https://github.com/eclipse-thingweb/test-things
+
+---
+
+
 Collection of IoT device simulators that can be used for testing and exploration purposes of different protocols and other Web of Things mechanisms.
 The devices are implemented via various programming languages and frameworks.
 The protocols you can currently test are:
